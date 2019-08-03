@@ -975,7 +975,13 @@ export default class Display {
                 this.setActiveGuild(this.client.guilds.get(args[0]) as Guild);
             }
             else {
-                this.appendSystemMessage("Such guild does not exist");
+                const guild: Guild = this.client.guilds.array().find((guild: Guild) => guild.name === args.join(" ")) as Guild;
+                if (!guild) {
+                    this.appendSystemMessage("Such guild does not exist");
+                }
+                else {
+                    this.setActiveGuild(guild as Guild);
+                }
             }
         });
 
